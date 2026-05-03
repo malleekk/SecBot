@@ -1,6 +1,11 @@
-streamlit==1.32.0
+streamlit
 langchain
-langchain-anthropic
-chromadb
+langchain-groq
+langchain-community
+langchain-huggingface
+langchain-core
+langchain-text-splitters
 pypdf
 python-dotenv
+sentence-transformers
+faiss-cpu
