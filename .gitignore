@@ -1,0 +1,17 @@
+# Fichiers d'environnement (NE JAMAIS COMMIT LES CLÉS API)
+.env
+
+# Dossier de la base de données vectorielle
+chroma_db/
+vectorstore/
+
+# Dossiers contenant les PDFs
+docs/
+*.pdf
+
+# Environnement virtuel et cache Python
+venv/
+env/
+.venv/
+__pycache__/
+*.pyc
