@@ -4,30 +4,18 @@ Chatbot intelligent basé sur RAG (Retrieval-Augmented Generation)
 qui répond aux questions de cybersécurité en s'appuyant sur
 des sources officielles (OWASP, NIST).
 
-## Membres
+## 👥 Membres du groupe
 - Membre 1 : [malek laamiri]
-- Membre 2 : [malek marouani]  
-- Membre 3 : [sarra ouereghemi]
+- Membre 2 : [sarra ouerghemi]
+- Membre 3 : [malek maraouni]
 
-## Installation
+## 🎯 Option choisie
+Option 2 — RAG Amélioré (Intermédiaire)
+
+## ⚙️ Installation
+```bash
 pip install -r requirements.txt
+```
 
-## Configuration
+## 🔑 Configuration
 Créez un fichier .env :
-GROQ_API_KEY=votre_cle_groq
-
-## Lancement
-python ingest.py
-streamlit run app.py
-
-## Technologies utilisées
-- LangChain
-- FAISS
-- Groq (LLaMA3)
-- Streamlit
-- HuggingFace Embeddings
-
-## Sources de données
-- OWASP Top 10 2021
-- OWASP API Security
-- NIST Cybersecurity Framework

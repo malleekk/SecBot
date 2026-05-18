@@ -68,3 +68,4 @@ if question:
                         for s in sources:
                             st.markdown(f"- **{s['source']}** — page {s['page']}")
                             st.caption(s['extrait'])
+                            
