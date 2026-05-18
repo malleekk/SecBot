@@ -59,7 +59,8 @@ if question:
             st.error("⚠️ Hop là ! Vous devez d'abord indexer les PDFs dans le menu à gauche.")
         else:
             with st.spinner("SecBot fouille dans ses archives"):
-                reponse, sources = poser_question(st.session_state.chatbot, question)
+                # CORRECTION : On ajoute st.session_state.messages à la fin
+                reponse, sources = poser_question(st.session_state.chatbot, question, st.session_state.messages)
                 st.write(reponse)
 
                 if sources:
@@ -67,7 +68,3 @@ if question:
                         for s in sources:
                             st.markdown(f"- **{s['source']}** — page {s['page']}")
                             st.caption(s['extrait'])
-
-                st.session_state.messages.append(
-                    {"role": "assistant", "content": reponse}
-                )

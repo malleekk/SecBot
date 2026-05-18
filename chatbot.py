@@ -4,12 +4,8 @@ from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.messages import HumanMessage, AIMessage
 from langchain_core.output_parsers import StrOutputParser
-from langchain_core.runnables import RunnablePassthrough
 
 load_dotenv()
-
-# Historique de conversation
-chat_history = []
 
 def formater_docs(docs):
     return "\n\n".join(doc.page_content for doc in docs)
@@ -49,29 +45,27 @@ CONTEXTE :
     return {"chain": chain, "retriever": retriever}
 
 
-def poser_question(chatbot, question):
-    global chat_history
-
-    # Chercher les documents pertinents
+def poser_question(chatbot, question, st_chat_history):
+    # 1. Chercher les documents pertinents dans FAISS
     docs = chatbot["retriever"].invoke(question)
     context = formater_docs(docs)
 
-    # Générer la réponse
+    # 2. Convertir l'historique Streamlit au format attendu par LangChain
+    lc_history = []
+    for msg in st_chat_history:
+        if msg["role"] == "user":
+            lc_history.append(HumanMessage(content=msg["content"]))
+        elif msg["role"] == "assistant":
+            lc_history.append(AIMessage(content=msg["content"]))
+
+    # 3. Générer la réponse en passant l'historique converti
     reponse = chatbot["chain"].invoke({
         "context": context,
-        "chat_history": chat_history,
+        "chat_history": lc_history,
         "question": question
     })
 
-    # Mettre à jour l'historique
-    chat_history.append(HumanMessage(content=question))
-    chat_history.append(AIMessage(content=reponse))
-
-    # Garder seulement les 10 derniers messages
-    if len(chat_history) > 10:
-        chat_history = chat_history[-10:]
-
-    # Extraire les sources
+    # 4. Extraire les sources pour les afficher dans Streamlit
     sources = []
     for doc in docs:
         sources.append({
